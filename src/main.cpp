@@ -10,7 +10,6 @@
 // Includes
 //------------------------------------------------------------------------------
 #include <Arduino.h>
-#include <assert.h>
 #include "access_led.h"
 #include "cartridge.h"
 #include "system.h"
@@ -42,7 +41,8 @@ typedef enum{
   ERROR_CHECKSUM    = 2,  /**< Wrong checksum */
   ERROR_LENGTH      = 4,  /**< Data length exceeds limit */
   ERROR_RANGE       = 8,  /**< Value out of range */
-  ERROR_TIMEOUT     = 16  /**< Timeout **/
+  ERROR_TIMEOUT     = 16, /**< Timeout **/
+  ERROR_REPLY_LENGTH = 32 /**< BUG: Reply length exceeds buffer size.*/
 }ErrorTypeDef;
 
 
@@ -221,7 +221,9 @@ void loop(void)
       AccessLed_Off();
     }
 
-    assert(header.replyLength <= sizeof(data));
+    if (header.replyLength > sizeof(data)) {
+      errorFlags |= ERROR_REPLY_LENGTH;
+    }
 
     if (errorFlags)
     {
