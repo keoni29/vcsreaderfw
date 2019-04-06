@@ -2,7 +2,19 @@
 /**
   ******************************************************************************
   * @file           : main.cpp
-  * @brief          : Implements communication with software
+  * @brief          : Atari VCS/ Atari 2600 video game cartridge reader firmware
+  * @mainpage Overview
+  * Usage:
+  * -# Open serial port e.g. /dev/ttyACM0
+  * -# Send request
+  * -# Receive reply
+  * -# (Optional) Unpack device info. See ::InfoTypedef 
+  * 
+  * Request/reply structure:
+  * offset          | Field name
+  * --------------- | ----------------------------
+  * +0              | Header (See ::HeaderTypeDef )
+  * +sizeof(Header) | Data
   ******************************************************************************
   */
 
@@ -47,7 +59,7 @@ typedef enum{
 
 
 typedef struct __attribute__((packed)){ /* Packed so structure is well defined. Required for communication with software domain. */
-  uint8_t cmd;            /**< Command */
+  uint8_t cmd;            /**< Command \n Available commands: ::CmdTypedef */
   uint8_t status;         /**< Status + errors field. Upper 4 bits are error flags.*/
   uint16_t requestLength; /**< Length of the request frame (from software) */
   uint16_t replyLength;   /**< Length of the reply frame (to software) */
@@ -84,8 +96,6 @@ InfoTypedef *info = (InfoTypedef *)data;
 //------------------------------------------------------------------------------
 void setup()
 {
-  Serial.begin();
-  while (!Serial) {};
   AccessLed_Init();
   Cartridge_Init();
 }
@@ -100,6 +110,9 @@ void loop(void)
   uint16_t errorFlags;
   size_t len;
 
+  Serial.begin();
+  // Wait for serial port to be connected.
+  while (!Serial) {};
 
   for (int i = 0; i < 5; i++) {
     AccessLed_On();
@@ -114,7 +127,7 @@ void loop(void)
 
     if (!Serial)
     {
-      // Keep restarting interpreter until VCP is connected.
+      // Restart interpreter
       break;
     }
 
