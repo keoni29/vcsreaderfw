@@ -1,4 +1,4 @@
-# VCS/Atari2600 Game Cartridge Reader Firmware
+# Atari2600 Game Cartridge Reader Firmware
 This repository contains the firmware for a cartridge reader which I developed. It can be used to create backups of your atari2600 games on your PC for preservation purposes or for playing your games on an emulator.
 I also made a piece of software for creating backups on your PC, which can be found at https://github.com/keoni29/romclient/
 Visit my project page at https://hackaday.io/project/113217-atari2600-cartridge-reader
