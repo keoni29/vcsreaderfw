@@ -29,7 +29,7 @@
 //------------------------------------------------------------------------------
 // Defines
 //------------------------------------------------------------------------------
-#define BUFFER_SIZE 16384
+#define BUFFER_SIZE 8192
 
 //------------------------------------------------------------------------------
 // Typedefs
@@ -116,7 +116,7 @@ void loop(void)
 
   for (int i = 0; i < 5; i++) {
     AccessLed_On();
-    delay(300);
+    delay(200);
     AccessLed_Off();
     delay(100);
   }
@@ -140,6 +140,9 @@ void loop(void)
     if (len < sizeof(header)) {
       errorFlags |= ERROR_TIMEOUT;
     }
+
+    // TODO Remove delay and fix issue. Delay added to prevent timeout on PC side.
+    delay(100);
 
     if (!errorFlags)
     {

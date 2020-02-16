@@ -19,7 +19,7 @@
 //------------------------------------------------------------------------------
 // Private function prototypes
 //------------------------------------------------------------------------------
-static void DataBusMode(WiringPinMode mode);
+static void DataBusMode(uint32_t mode);
 
 
 //------------------------------------------------------------------------------
@@ -153,7 +153,7 @@ void HAL_Cartridge_DataBusOutput(void)
 //------------------------------------------------------------------------------
 // Private functions
 //------------------------------------------------------------------------------
-static void DataBusMode(WiringPinMode mode)
+static void DataBusMode(uint32_t mode)
 {
   pinMode(PA8, mode);
   pinMode(PA9, mode);
