@@ -18,6 +18,9 @@ Using the USB bootloader
 
 Type without hitting enter
 ```
-dfu-util -a2 -D .pioenvs/bluepill_f103c8/firmware.bin
+dfu-util -a2 -D .pio/build/bluepill_f103c8/firmware.bin
 ```
 Press the reset button and then press enter
+
+### Troubleshooting
+If you see the error "Can’t open DFU Device" you need to set udev permissions when using Linux or install the usb driver when using Windows.
