@@ -141,9 +141,6 @@ void loop(void)
       errorFlags |= ERROR_TIMEOUT;
     }
 
-    // TODO Remove delay and fix issue. Delay added to prevent timeout on PC side.
-    delay(1);
-
     if (!errorFlags)
     {
       if (header.requestLength > sizeof(data))
