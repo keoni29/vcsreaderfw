@@ -142,7 +142,7 @@ void loop(void)
     }
 
     // TODO Remove delay and fix issue. Delay added to prevent timeout on PC side.
-    delay(100);
+    delay(1);
 
     if (!errorFlags)
     {

@@ -49,7 +49,10 @@ uint8_t Cartridge_Read(uint16_t address)
 {
   uint8_t val;
 
+  HAL_Cartridge_DisableRom();
   HAL_Cartridge_SetAddressBus(address);
+  delayMicroseconds(20);
+  HAL_Cartridge_EnableRom();
   val = HAL_Cartridge_GetDataBus();
 
   return val;
@@ -58,7 +61,7 @@ uint8_t Cartridge_Read(uint16_t address)
 /**
  * @brief Emulate read operation outside of ROM.
  * @param[in] address   Address in VCS memory address space
- * @return Byte read from the cartridge ROM.
+ * @return CARTRIDGE_OK;
  */
 uint8_t Cartridge_ReadEmulated(uint16_t address, uint8_t data)
 {
@@ -100,7 +103,8 @@ uint8_t Cartridge_ReadEmulatedBlock(uint16_t start, uint16_t len, uint8_t* buf)
   {
     Cartridge_ReadEmulated(address, *p);
     p++;
-    delay(readDelay);
+    //TODO put in delay
+    //delay(readDelay);
   }
 
   return CARTRIDGE_OK;
